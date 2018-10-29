@@ -28,7 +28,9 @@ defmodule Martins.MixProject do
       {:jason, "~> 1.1"},
       # Automatically run your Elixir project's tests each time you save a file
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
-      {:plug, "~> 1.6"}
+      {:plug, "~> 1.6"},
+      # A Plug adapter for Cowboy
+      {:plug_cowboy, "~> 2.0"}
     ]
   end
 
