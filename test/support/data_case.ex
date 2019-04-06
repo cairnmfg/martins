@@ -16,11 +16,8 @@ defmodule Martins.Test.DataCase do
       {:ok, body} ->
         body
 
-      {:error, {:invalid, token, _}} ->
-        raise "could not decode JSON body, invalid token #{inspect(token)} in body:\n\n#{body}"
-
-      {:error, :invalid, _} ->
-        raise "could not decode JSON body, body is empty"
+      {:error, _} ->
+        raise "could not decode JSON body"
     end
   end
 

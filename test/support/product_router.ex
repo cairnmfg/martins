@@ -5,6 +5,7 @@ defmodule Martins.Test.ProductRouter do
 
   get("/", do: respond(conn, present(:resource, %{id: 42, name: "Cairn"})))
   get("/bad_request", do: respond(conn, :bad_request))
+  get("/conflict", do: respond(conn, :conflict))
   get("/forbidden", do: respond(conn, :forbidden))
   get("/boom", do: respond(conn, :boom))
   get("/unauthorized", do: respond(conn, :unauthorized))
