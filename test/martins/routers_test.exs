@@ -33,6 +33,15 @@ defmodule Martins.RoutersTest do
       assert json_response(conn, 400)["errors"]["detail"] == "Bad Request"
     end
 
+    test "renders conflict error from error view" do
+      conn =
+        :get
+        |> conn("/conflict", "")
+        |> call_router()
+
+      assert json_response(conn, 409)["errors"]["detail"] == "Conflict"
+    end
+
     test "renders forbidden error from error view" do
       conn =
         :get

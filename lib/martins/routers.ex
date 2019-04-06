@@ -62,6 +62,9 @@ defmodule Martins.Routers do
             {:error, :bad_request} ->
               respond(conn, :bad_request)
 
+            {:error, :conflict} ->
+              respond(conn, :conflict)
+
             {:error, %{__struct__: Ecto.Changeset} = changeset} ->
               respond(conn, :unprocessable_entity, changeset)
 
@@ -93,6 +96,14 @@ defmodule Martins.Routers do
 
     conn
     |> respond(body: body, code: 400)
+    |> Plug.Conn.halt()
+  end
+
+  def respond(conn, error_view: error_view, result: :conflict) do
+    body = error_view.present(:conflict, %{})
+
+    conn
+    |> respond(body: body, code: 409)
     |> Plug.Conn.halt()
   end
 

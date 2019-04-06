@@ -6,6 +6,9 @@ defmodule Martins.Test.ErrorView do
   def present(:bad_request, _assigns),
     do: %{errors: %{detail: "Bad Request"}}
 
+  def present(:conflict, _assigns),
+    do: %{errors: %{detail: "Conflict"}}
+
   def present(:forbidden, _assigns),
     do: %{errors: %{detail: "Forbidden"}}
 
