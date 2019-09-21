@@ -1,6 +1,8 @@
 defmodule Martins.RoutersTest do
   alias Martins.Routers
-  alias Martins.Test.ProductRouter
+  alias Martins.Test.{NoLoggerRouter, ProductRouter}
+
+  import ExUnit.CaptureLog
 
   use Martins.Test.DataCase
 
@@ -77,7 +79,21 @@ defmodule Martins.RoutersTest do
 
       assert json_response(conn, 404)["errors"]["detail"] == "Not Found"
     end
+
+    test "permits logger to be disabled for a router" do
+      assert capture_log(fn ->
+               :get
+               |> conn("/", "")
+               |> call_router(ProductRouter)
+             end) =~ "[info]  GET"
+
+      assert capture_log(fn ->
+               :get
+               |> conn("/", "")
+               |> call_router(NoLoggerRouter)
+             end) == ""
+    end
   end
 
-  defp call_router(conn), do: ProductRouter.call(conn, @opts)
+  defp call_router(conn, router \\ ProductRouter), do: router.call(conn, @opts)
 end
