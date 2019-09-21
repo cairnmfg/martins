@@ -5,6 +5,7 @@ defmodule Martins.Routers do
       auth_error_handler = Keyword.get(opts, :auth_error_handler)
       auth_provider = Keyword.get(opts, :auth_provider)
       error_view = Keyword.get(opts, :error_view)
+      logger_disabled = Keyword.get(opts, :logger_disabled, false)
       views_namespace = Keyword.get(opts, :views_namespace)
 
       use Plug.Router
@@ -32,7 +33,9 @@ defmodule Martins.Routers do
         )
       end
 
-      plug(Plug.Logger)
+      if !logger_disabled do
+        plug(Plug.Logger)
+      end
 
       plug(:dispatch)
 
